@@ -53,6 +53,7 @@ MIDDLEWARE = [
     'requestdateapp.middlewares.set_useragent_on_request_middleware',
     'requestdateapp.middlewares.CountRequestsMiddleware',
     'ratelimit.middleware.RatelimitMiddleware',
+    'requestdateapp.middlewares.UpdateIPv4UserMeta',
 ]
 
 ROOT_URLCONF = 'mysite.urls'
