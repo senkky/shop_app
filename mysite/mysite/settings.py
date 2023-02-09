@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'shopapp',
+    'requestdateapp.apps.RequestdateappConfig',
 ]
 
 MIDDLEWARE = [
@@ -49,6 +50,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'requestdateapp.middlewares.set_useragent_on_request_middleware',
+    'requestdateapp.middlewares.CountRequestsMiddleware',
+    'ratelimit.middleware.RatelimitMiddleware',
+    'requestdateapp.middlewares.UpdateIPv4UserMeta',
 ]
 
 ROOT_URLCONF = 'mysite.urls'
@@ -123,3 +128,14 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CONTENT_TYPES = ['image', 'video', 'txt']
+# 2.5MB - 2621440
+# 5MB - 5242880
+# 10MB - 10485760
+# 20MB - 20971520
+# 50MB - 5242880
+# 100MB 104857600
+# 250MB - 214958080
+# 500MB - 429916160
+MAX_UPLOAD_SIZE = "5242880"
