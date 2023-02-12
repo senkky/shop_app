@@ -1,7 +1,6 @@
-from time import timezone
-
-from django.contrib.auth.models import User
 from django.http import HttpRequest, HttpResponse
+
+from django_ratelimit.decorators import ratelimit
 
 
 def set_useragent_on_request_middleware(get_response):
@@ -35,11 +34,9 @@ class CountRequestsMiddleware:
         self.exceptions_count += 1
         print("got", self.exceptions_count, "exceptions so far")
 
-class UpdateIPv4UserMeta(object):
-    def process_view(self, request, view_func, view_args, view_kwargs):
-        user = request.user
-        today_30min = timezone.now() + timezone.timedelta(minutes=30)
-        if user.is_authenticated():
-            if user.last_login > today_30min:
-                User.objects.filter(id=request.user.id).\
-                    update(latest_ip=request.META['REMOTE_ADDR'])
+# @ratelimit(key='ip', rate='5/m', block=False)
+# def myview_middlewares(request: HttpRequest):
+#     # Will be true if the same IP makes more than 5 POST
+#     # requests/minute.
+#     was_limited = getattr(request, 'limited', False)
+#     return HttpResponse()
