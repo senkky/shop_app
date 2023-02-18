@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+from django.urls import reverse_lazy
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
@@ -134,4 +136,5 @@ CONTENT_TYPES = ['image', 'video', 'txt']
 # 500MB - 429916160
 MAX_UPLOAD_SIZE = "5242880"
 
-LOGIN_REDIRECT_URL = '/admin/'
+LOGIN_REDIRECT_URL = reverse_lazy("myauth:about-me")
+LOGIN_URL = reverse_lazy("myauth:login")
