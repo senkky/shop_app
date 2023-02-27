@@ -1,0 +1,179 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: white;
+    font-family: "Times New Roman", sans-serif;
+}
+
+h1 {
+    padding: 10px;
+    margin: 5px;
+    font-size: 27px;
+    font-weight: 700;
+}
+
+h2, h3 {
+    padding: 10px;
+    margin: 5px;
+}
+
+a {
+    text-decoration: none;
+}
+
+.conteiner {
+    max-width: 1170px;
+    margin: 0 auto;
+    padding: 0 15px;
+    z-index: 1;
+}
+
+.header {
+    background: rgba(255, 255, 255, 0.57);
+    /*position: fixed;*/
+    width: 100%;
+    border-bottom: 2px solid #276db6;
+}
+
+.header_wrap {
+    display: flex;
+    justify-content: center;
+}
+
+.logo {
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 30px;
+    padding: 20px 15px;
+    color: #276DB6FF;
+}
+
+ul, li {
+    display: flex;
+}
+
+nav a, p {
+    display: block;
+
+    text-decoration: none;
+    font-size: 200%;
+    font-weight: 500;
+    color: #276db6;
+    padding: 20px 15px;
+}
+
+nav a:hover {
+    color: #e18829;
+}
+
+/*section {*/
+/*    position: relative;*/
+/*    height: 100vh;*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    justify-content: center;*/
+/*}*/
+
+.section_wrap {
+    color: #276db6;
+    font-size: 20px;
+}
+
+div p, .edit_profile {
+    margin: 15px;
+    padding: 5px;
+    border-bottom: 1px solid #276db6;
+
+}
+
+.conteiner_pub {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.pub_button {
+    padding: 5px;
+    color: white;
+    background-color: #276db6;
+    border-radius: 5px;
+    border: none;
+    font-size: 20px;
+}
+
+.pub_button:hover {
+    background-color: #E18829FF;
+}
+
+div form {
+    align-content: center;
+}
+
+div form label {
+    display: block;
+    color: #276db6;
+    margin: 10px;
+    padding: 10px;
+    font-size: 3vh;
+}
+
+div form input, textarea {
+    border: 1px solid #276db6;
+    font-size: 20px;
+    color: #276db6;
+    background-color: white;
+    border-radius: 5px;
+    margin-bottom: 30px;
+    min-height: 30px;
+}
+
+input:hover {
+    border: 1px solid #e18829;
+    background-color: white;
+}
+
+form ul li {
+    color: #e18829;
+    font-size: 2vh;
+    display: inline;
+}
+
+div form textarea {
+    max-width: 90%;
+}
+
+input[type="file"] {
+    border-radius: 5px;
+    background-color: #276db6;
+    color: white;
+}
+
+
+.button_a {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.content_button {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.edit_profile {
+    border: none;
+    background-color: #276db6;
+    border-radius: 5px;
+}
+
+.button_edit_profile {
+    text-decoration: none;
+    color: white;
+    margin: 6px;
+}
+
+.helptext {
+    font-size: 22px;
+    color: #e18829;
+}

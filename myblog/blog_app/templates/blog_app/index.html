@@ -1,0 +1,30 @@
+{% extends 'blog_app/base.html' %}
+{% load static %}
+
+{% block css_add %}
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+{% endblock %}
+{% block title %}
+    Блог
+{% endblock %}
+
+{% block body %}
+    <h1>Статьи</h1>
+    {% if blog %}
+        <div>
+            {% for blog in blogs %}
+                <div>
+                    <h2>Title: {{ blog.title }}</h2>
+                    <h2>Username: {{ blog.user }}</h2>
+                    <p>Creat: {{ blog.create_data_time }}</p>
+                    <p>Article: {{ blog.articles }}</p>
+                </div>
+            {% endfor %}
+
+        </div>
+    {% else %}
+        <h3>Статей нет</h3>
+    {% endif %}
+
+
+{% endblock %}

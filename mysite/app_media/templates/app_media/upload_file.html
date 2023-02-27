@@ -1,0 +1,14 @@
+{% extends 'app_media/base.html' %}
+
+{% block title %}
+    Загрузка файла
+{% endblock %}
+
+{% block body %}
+    <h2>Загрузка файла</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Загрузить файл</button>
+    </form>
+{% endblock %}

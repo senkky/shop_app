@@ -21,4 +21,6 @@ urlpatterns = [
     path('shop/', include('shopapp.urls')),
     path('req/', include('requestdateapp.urls')),
     path('myauth/', include('myauth.urls')),
+    path('files/', include('app_media.urls')),
+    path('app_goods/', include('app_goods.urls')),
 ]

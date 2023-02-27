@@ -7,6 +7,7 @@ from django.http import HttpRequest, HttpResponse
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, CreateView
 from .models import Profile
+from django.urls import reverse
 
 
 class AboutMeView(TemplateView):
@@ -52,7 +53,7 @@ def login_view(request: HttpRequest):
 
 def logout_view(request: HttpRequest):
     logout(request)
-    from django.urls import reverse
+
     return redirect(reverse("myauth:login"))
 
 

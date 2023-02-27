@@ -1,0 +1,22 @@
+{% extends 'blog_app/base.html' %}
+
+{% load static %}
+{% block title %}
+    Профиль
+{% endblock %}
+{% block body %}
+    <h1>Профиль</h1>
+    <p>{{ user.profile.avatar }}</p>
+    <p>Username: {{ user.username }}</p>
+    <p>First name: {{ user.first_name }}</p>
+    <p>Last name: {{ user.last_name }}</p>
+    <p>Email: {{ user.email }}</p>
+    <p>Bio: {{ user.profile.bio }}</p>
+    <div class="content_button">
+        <button class="edit_profile">
+            <a class="button_edit_profile" href="{% url 'blog_app:profile_update_form' %}">
+                Редактировать профиль
+            </a>
+        </button>
+    </div>
+{% endblock %}

@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'shopapp',
     'requestdateapp.apps.RequestdateappConfig',
     'myauth.apps.MyauthConfig',
+    'app_media.apps.AppMediaConfig',
+    'app_goods.apps.AppGoodsConfig',
 ]
 
 MIDDLEWARE = [

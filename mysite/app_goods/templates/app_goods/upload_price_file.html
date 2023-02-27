@@ -1,0 +1,13 @@
+{% extends 'app_goods/base.html' %}
+
+{% block title %}
+    Загрузка файла с ценами
+{% endblock %}
+
+{% block body %}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Загрузить файл</button>
+    </form>
+{% endblock %}

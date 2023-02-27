@@ -1,0 +1,18 @@
+{% extends 'blog_app/base.html' %}
+
+{% block title %}
+    Регистрация
+{% endblock %}
+
+{% block body %}
+    <h1>Регистрация</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="conteiner_pub">
+            <button class="pub_button" type="submit">
+                Регистрация
+            </button>
+        </div>
+    </form>
+{% endblock %}
