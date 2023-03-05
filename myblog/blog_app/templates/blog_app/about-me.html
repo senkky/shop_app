@@ -14,7 +14,7 @@
     <p>Bio: {{ user.profile.bio }}</p>
     <div class="content_button">
         <button class="edit_profile">
-            <a class="button_edit_profile" href="{% url 'blog_app:profile_update_form' %}">
+            <a class="button_edit_profile" href="{% url 'blog_app:profile_update_form' request.user.id %}">
                 Редактировать профиль
             </a>
         </button>

@@ -23,7 +23,7 @@ class BlogsListView(ListView):
 
 class BlogCreateView(CreateView):
     model = Blog
-    fields = "title", "articles", "gallere"
+    fields = "title", "articles", "gallery"
     success_url = reverse_lazy("blog_app:index")
 
 
@@ -55,10 +55,10 @@ class AboutMeView(TemplateView):
 
 
 class UserUpdateView(UpdateView):
-    model = User
-    fields = "first_name", "last_name", "email"
     template_name = "blog_app/profile_update_form.html"
-    success_url = reverse_lazy("blog_app:about-me")
+    queryset = User.objects.prefetch_related("profile")
+    fields = "first_name", "last_name", "email", "bio", "avatar"
+    success_url = reverse_lazy("blog_app:index")
 
 
 class RegisterUser(CreateView):

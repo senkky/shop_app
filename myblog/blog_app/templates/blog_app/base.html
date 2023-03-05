@@ -25,10 +25,10 @@
                             <a href="{% url 'blog_app:index' %}">Главная</a>
                         </li>
                         <li>
-                            <a href="{% url 'blog_app:about-me' %}">Профиль</a>
+                            <a href="{% url 'blog_app:about-me' request.user.id %}">Профиль</a>
                         </li>
                         <li>
-                            <a href="{% url 'blog_app:create_blog' %}">Добавить статью</a>
+                            <a href="{% url 'blog_app:create_blog' request.user.id %}">Добавить статью</a>
                         </li>
                         <li>
                             <p style="color: rgb(225,136,41); border: none"> {{ user.username }}</p>

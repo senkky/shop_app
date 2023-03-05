@@ -16,7 +16,7 @@ urlpatterns = [
     path("login/", LoginUserView.as_view(), name="login"),
     path("register/", RegisterUser.as_view(), name="register"),
     path("logout/", logout_view, name="logout"),
-    path("index/blog_creat/", BlogCreateView.as_view(), name="create_blog"),
-    path("index/bio/<int:pk>", AboutMeView.as_view(), name="about-me"),
-    path("index/bio/<int:pk>/update/", UserUpdateView.as_view(), name="profile_update_form"),
+    path("index/blog_creat/<int:pk>/", BlogCreateView.as_view(), name="create_blog"),
+    path("index/<int:pk>/", AboutMeView.as_view(), name="about-me"),
+    path("index/update/<int:pk>/", UserUpdateView.as_view(), name="profile_update_form"),
 ]
