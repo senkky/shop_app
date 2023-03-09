@@ -1,5 +1,6 @@
 from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LogoutView, LoginView
 from django.http import HttpResponse, HttpRequest
@@ -54,10 +55,10 @@ class AboutMeView(TemplateView):
 #     return render(request, "blog_app/profile_update_form.html", context=context)
 
 
-class UserUpdateView(UpdateView):
+class UserUpdateView(LoginRequiredMixin, UpdateView):
     template_name = "blog_app/profile_update_form.html"
     queryset = Profile.objects.select_related("user")
-    fields = "bio", "avatar"
+    fields = "bio", "avatar", "user"
     success_url = reverse_lazy("blog_app:index")
 
     def form_valid(self, form):
