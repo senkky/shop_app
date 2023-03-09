@@ -6,7 +6,7 @@
 {% endblock %}
 {% block body %}
     <h1>Профиль</h1>
-    <p>{{ user.profile.avatar }}</p>
+    <img src="{{ profile.avatar.url }}" alt="{{ profile.avatar.name }}">
     <p>Username: {{ user.username }}</p>
     <p>First name: {{ user.first_name }}</p>
     <p>Last name: {{ user.last_name }}</p>
