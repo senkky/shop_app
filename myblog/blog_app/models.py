@@ -20,7 +20,7 @@ class Blog(models.Model):
 
 def profile_images_directory_path(instance: "Profile", filename: str) -> str:
     return "profile/profile_{pk}/avatar{filename}".format(
-        pk=instance.profile.pk,
+        pk=instance.user.pk,
         filename=filename,
     )
 

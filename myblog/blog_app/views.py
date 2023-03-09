@@ -1,12 +1,13 @@
 from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LogoutView, LoginView
 from django.http import HttpResponse, HttpRequest
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy, reverse
 
-from .forms import UserForm, RegisterUserForm
+from .forms import UserForm, RegisterUserForm, UserUpdateForm, ProfileUpdateForm
 from .models import Blog, Profile
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
 
@@ -39,26 +40,15 @@ class AboutMeView(TemplateView):
     template_name = "blog_app/about-me.html"
 
 
-# def update_user(request: HttpRequest) -> HttpResponse:
-#     if request.method == "POST":
-#         form = UserForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             url = reverse("blog_app:index")
-#             return redirect(url)
-#     else:
-#         form = UserForm()
-#     context = {
-#         "form": form,
-#     }
-#     return render(request, "blog_app/profile_update_form.html", context=context)
-
-
-class UserUpdateView(UpdateView):
+class UserUpdateView(LoginRequiredMixin, UpdateView):
     template_name = "blog_app/profile_update_form.html"
-    queryset = User.objects.prefetch_related("profile")
-    fields = "first_name", "last_name", "email", "bio", "avatar"
+    model = Profile
+    fields = "bio", "avatar", "user"
     success_url = reverse_lazy("blog_app:index")
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
 
 class RegisterUser(CreateView):

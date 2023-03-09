@@ -7,6 +7,7 @@ from .views import (
     UserUpdateView,
     RegisterUser,
     LoginUserView,
+    # profile,
 )
 
 app_name = "blog_app"
@@ -18,5 +19,5 @@ urlpatterns = [
     path("logout/", logout_view, name="logout"),
     path("index/blog_creat/<int:pk>/", BlogCreateView.as_view(), name="create_blog"),
     path("index/<int:pk>/", AboutMeView.as_view(), name="about-me"),
-    path("index/update/<int:pk>/", UserUpdateView.as_view(), name="profile_update_form"),
+    path("index/<int:pk>/update/", UserUpdateView.as_view(), name="profile_update_form"),
 ]
