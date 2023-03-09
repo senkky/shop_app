@@ -6,21 +6,23 @@
 {% endblock %}
 {% block body %}
     <h1>Профиль</h1>
-    <div>
-        <img src="{{ profile.avatar.url }}" alt="{{ profile.avatar.name }}">
-    </div>
-    <div>
-        <p>Username: {{ user.username }}</p>
-        <p>First name: {{ user.first_name }}</p>
-        <p>Last name: {{ user.last_name }}</p>
-        <p>Email: {{ user.email }}</p>
-        <p>Bio: {{ user.profile.bio }}</p>
-        <div class="conteiner_pub">
-            <button class="pub_button">
-                <a class="button_edit_profile" href="{% url 'blog_app:profile_update_form' user.pk %}">
-                    Редактировать профиль
-                </a>
-            </button>
+    <section class="section_about">
+        <div class="conteiner_avatar">
+            <img class="avatar" src="{{ user.profile.avatar.url }}" alt="{{ profile.avatar.name }}">
         </div>
+        <div class="conteiner_info">
+            <p>Username: {{ user.username }}</p>
+            <p>First name: {{ user.first_name }}</p>
+            <p>Last name: {{ user.last_name }}</p>
+            <p>Email: {{ user.email }}</p>
+            <p>Bio: {{ user.profile.bio }}</p>
+        </div>
+    </section>
+    <div class="conteiner_pub">
+        <button class="pub_button">
+            <a class="button_edit_profile" href="{% url 'blog_app:profile_update_form' user.pk %}">
+                Редактировать профиль
+            </a>
+        </button>
     </div>
 {% endblock %}

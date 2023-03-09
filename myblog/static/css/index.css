@@ -177,3 +177,23 @@ input[type="file"] {
     font-size: 22px;
     color: #e18829;
 }
+
+.section_about {
+    display: flex;
+    justify-content: space-between;
+}
+
+.avatar {
+    width: 75%;
+}
+
+.conteiner_avatar {
+    display: block;
+
+
+}
+
+.conteiner_info {
+    display: block;
+}
+

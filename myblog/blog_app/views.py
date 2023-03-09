@@ -57,8 +57,9 @@ class AboutMeView(TemplateView):
 
 class UserUpdateView(LoginRequiredMixin, UpdateView):
     template_name = "blog_app/profile_update_form.html"
-    queryset = Profile.objects.select_related("user")
-    fields = "bio", "avatar", "user"
+    # queryset = Profile.objects.select_related("user")
+    model = Profile
+    fields = "bio", "avatar",
     success_url = reverse_lazy("blog_app:index")
 
     def form_valid(self, form):
