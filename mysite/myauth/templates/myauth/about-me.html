@@ -8,6 +8,19 @@
     <h1>User info</h1>
     {% if user.is_authenticated %}
         <h2>Detail</h2>
+        <div>
+            {% if profile.avatar %}
+                <img src="{{ profile.avatar.url }}" alt="{{ profile.avatar.name }}">
+            {% else %}
+                <p>There is no avatar</p>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit">Upload</button>
+                </form>
+
+            {% endif %}
+        </div>
         <p>Username: {{ user.username }}</p>
         <p>First name: {{ user.first_name }}</p>
         <p>Last name: {{ user.last_name }}</p>
@@ -16,5 +29,8 @@
     {% else %}
         <h2>User is anonymous</h2>
     {% endif %}
+    <div>
+        <a href="{% url 'myauth:update_about' pk=user.pk %}">Go to update profile</a>
+    </div>
 
 {% endblock %}

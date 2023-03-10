@@ -1,17 +1,42 @@
 from django.contrib.auth.decorators import login_required, permission_required, user_passes_test
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 from django.contrib.auth.views import LogoutView
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpRequest, HttpResponse
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView, CreateView
+from django.views.generic import TemplateView, CreateView, ListView, UpdateView
+
+# from .forms import UserListForm
 from .models import Profile
 from django.urls import reverse
 
 
 class AboutMeView(TemplateView):
     template_name = "myauth/about-me.html"
+
+
+# class ProfilesListView(ListView):
+#     template_name = "myauth/profile_list.html"
+#     model = User
+#     context_object_name = "profile_list"
+#     # queryset = User.objects.prefetch_related("avatar", "bio")
+#     form_class = UserListForm
+
+def profile_list(request: HttpRequest):
+    context = {
+        "users": User.objects.all(),
+        "profiles": Profile.objects.all()
+    }
+    return render(request, 'myauth/profile_list.html', context=context)
+
+
+class UserUpdateView(UpdateView):
+    model = User
+    fields = "first_name", "last_name", "email", "bio", "avatar"
+    success_url = reverse_lazy("myauth:profile_list")
+    queryset = User.objects
 
 
 class RegisterView(CreateView):

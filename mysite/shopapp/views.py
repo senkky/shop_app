@@ -8,7 +8,7 @@ from django.views.generic import TemplateView, ListView, DetailView, CreateView,
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 
 from .forms import ProductForm, OrdersForm, GroupForm
-from .models import Product, Order
+from .models import Product, Order, ProductImage
 from django.views import View
 
 
@@ -43,7 +43,8 @@ class GroupsListView(View):
 
 class ProductDetailsView(DetailView):
     template_name = "shopapp/product_details.html"
-    model = Product
+    # model = Product
+    queryset = Product.objects.prefetch_related("images")
     context_object_name = "product"
 
     # def get(self, request: HttpRequest, pk: int) -> HttpResponse:
@@ -56,7 +57,7 @@ class ProductDetailsView(DetailView):
 
 class ProductsListView(ListView):
     template_name = "shopapp/products-list.html"
-    model = Product
+    # model = Product
     context_object_name = "products"
     queryset = Product.objects.filter(archived=False)
 
@@ -74,7 +75,7 @@ class ProductCreateView(UserPassesTestMixin, CreateView):
         return self.request.user.is_superuser
 
     model = Product
-    fields = "name", "price", "description", "discount"
+    fields = "name", "price", "description", "discount", "preview"
     success_url = reverse_lazy("shopapp:products_list")
 
 
@@ -97,7 +98,8 @@ class ProductCreateView(UserPassesTestMixin, CreateView):
 
 class ProductUpdateView(UpdateView):
     model = Product
-    fields = "name", "price", "description", "discount"
+    # fields = "name", "price", "description", "discount", "preview"
+    form_class = ProductForm
     template_name_suffix = "_update_form"
 
     def get_success_url(self):
@@ -105,6 +107,12 @@ class ProductUpdateView(UpdateView):
             "shopapp:product_details",
             kwargs={"pk": self.object.pk},
         )
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        for image in form.files.getlist("images"):
+            ProductImage.objects.create(product=self.object, image=image)
+        return response
 
 
 class ProductDeleteView(DeleteView):

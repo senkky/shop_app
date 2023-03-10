@@ -197,3 +197,12 @@ input[type="file"] {
     display: block;
 }
 
+.conteiner_update {
+
+}
+
+.conteiner_update_form p, label {
+    border: none;
+    margin: 0;
+    padding: 0;
+}

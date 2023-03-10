@@ -4,13 +4,13 @@ from django.db import models
 
 def blog_gallery_directory_path(instance: "Blog", filename: str) -> str:
     return "blog/blog_{pk}/gallery{filename}".format(
-        pk=instance.blog.pk,
+        pk=instance.user.pk,
         filename=filename,
     )
 
 
 class Blog(models.Model):
-    user = models.ForeignKey(User, on_delete=models.PROTECT)
+    user = models.OneToOneField(User, on_delete=models.PROTECT)
     title = models.CharField(max_length=30)
     create_data_time = models.DateTimeField(auto_now_add=True)
     articles = models.TextField(max_length=10000)

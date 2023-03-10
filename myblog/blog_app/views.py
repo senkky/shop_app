@@ -7,7 +7,7 @@ from django.http import HttpResponse, HttpRequest
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 
-from .forms import UserForm, RegisterUserForm
+from .forms import UserProfileUpdateForm, UserRegisterMultiForm
 from .models import Blog, Profile
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
 
@@ -15,15 +15,11 @@ from django.views.generic import TemplateView, ListView, DetailView, CreateView,
 class BlogsListView(ListView):
     template_name = "blog_app/index.html"
     model = Blog
-    context_object_name = "title"
-    queryset = [
-        Blog.objects.filter(archived=False),
-        Blog.objects.filter(),
-    ]
 
 
 class BlogCreateView(CreateView):
     model = Blog
+    template_name = "blog_app/blog_form.html"
     fields = "title", "articles", "gallery"
     success_url = reverse_lazy("blog_app:index")
 
@@ -55,35 +51,41 @@ class AboutMeView(TemplateView):
 #     return render(request, "blog_app/profile_update_form.html", context=context)
 
 
-class UserUpdateView(LoginRequiredMixin, UpdateView):
+class UserUpdateView(UpdateView):
     template_name = "blog_app/profile_update_form.html"
-    # queryset = Profile.objects.select_related("user")
-    model = Profile
-    fields = "bio", "avatar",
+    model = User
+    form_class = UserProfileUpdateForm
+    success_url = reverse_lazy("blog_app:about-me")
+
+    def get_form_kwargs(self):
+        kwargs = super(UserUpdateView, self).get_form_kwargs()
+        kwargs.update(instance={
+            'user': self.object,
+            'profile': self.object.profile,
+        })
+        return kwargs
+
+    # def get_context_data(self, **kwargs):
+    #     context = super(UserUpdateView, self).get_context_data(**kwargs)
+    #     user = self.request.user
+    #     bio = Profile.objects.order_by('bio').filter(user=user.pk).first()
+    #     avatar = Profile.objects.order_by('avatar').filter(user=user.pk).first()
+    #     context['bio'] = bio
+    #     context['avatar'] = avatar
+    #     return context
+
+
+class RegisterUserView(CreateView):
+    form_class = UserRegisterMultiForm
+    template_name = "blog_app/register.html"
     success_url = reverse_lazy("blog_app:index")
 
     def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super().form_valid(form)
-
-
-class RegisterUser(CreateView):
-    form_class = RegisterUserForm
-    template_name = "blog_app/register.html"
-    success_url = reverse_lazy("blog_app:about-me")
-
-    # def form_valid(self, form):
-    #     response = super().form_valid(form)
-    #     Profile.objects.create(user=self.object)
-    #     username = form.cleaned_data.get("username")
-    #     password = form.cleaned_data.get("password1")
-    #     user = authenticate(
-    #         self.request,
-    #         username=username,
-    #         password=password,
-    #     )
-    #     login(request=self.request, user=user)
-    #     return response
+        user = form['user'].save()
+        profile = form['profile'].save(commit=False)
+        profile.user = user
+        profile.save()
+        return redirect(self.get_success_url())
 
 
 class LoginUserView(LoginView):
