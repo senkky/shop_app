@@ -25,10 +25,10 @@
                             <a href="{% url 'blog_app:index' %}">Главная</a>
                         </li>
                         <li>
-                            <a href="{% url 'blog_app:about-me' request.user.id %}">Профиль</a>
+                            <a href="{% url 'blog_app:create_blog' user.id %}">Добавить статью</a>
                         </li>
                         <li>
-                            <a href="{% url 'blog_app:create_blog' user.id %}">Добавить статью</a>
+                            <a href="{% url 'blog_app:about-me' %}">Профиль</a>
                         </li>
                         <li>
                             <p style="color: rgb(225,136,41); border: none"> {{ user.username }}</p>
@@ -40,6 +40,9 @@
                     </ul>
                 {% else %}
                     <ul>
+                        <li>
+                            <a href="{% url 'blog_app:index' %}">Главная</a>
+                        </li>
                         <li>
                             <a href="{% url 'blog_app:login' %}">Вход</a>
                         </li>

@@ -18,6 +18,18 @@ class UserRegisterMultiForm(MultiModelForm):
         "profile": CreationProfileForm,
     }
 
+    def save(self, commit=True):
+        objects = super(UserRegisterMultiForm, self).save(commit=False)
+
+        if commit:
+            user = objects['user']
+            user.save()
+            profile = objects['profile']
+            profile.user = user
+            profile.save()
+
+        return objects
+
 
 class UserForm(ModelForm):
     class Meta:

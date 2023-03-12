@@ -20,7 +20,7 @@
     </section>
     <div class="conteiner_pub">
         <button class="pub_button">
-            <a class="button_edit_profile" href="{% url 'blog_app:profile_update_form' user.pk %}">
+            <a class="button_edit_profile" href="{% url 'blog_app:profile_update_form' pk=user.pk %}">
                 Редактировать профиль
             </a>
         </button>

@@ -78,14 +78,19 @@ class UserUpdateView(UpdateView):
 class RegisterUserView(CreateView):
     form_class = UserRegisterMultiForm
     template_name = "blog_app/register.html"
-    success_url = reverse_lazy("blog_app:index")
+    success_url = reverse_lazy("blog_app:about-me")
 
     def form_valid(self, form):
-        user = form['user'].save()
-        profile = form['profile'].save(commit=False)
-        profile.user = user
-        profile.save()
-        return redirect(self.get_success_url())
+        response = super().form_valid(form)
+        username = form['user'].cleaned_data.get("username")
+        password = form['user'].cleaned_data.get("password1")
+        user = authenticate(
+            self.request,
+            username=username,
+            password=password
+        )
+        login(request=self.request, user=user)
+        return response
 
 
 class LoginUserView(LoginView):
