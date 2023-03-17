@@ -57,9 +57,8 @@ ul, li {
 
 nav a, p {
     display: block;
-
     text-decoration: none;
-    font-size: 200%;
+    font-size: 135%;
     font-weight: 500;
     color: #276db6;
     padding: 20px 15px;
@@ -68,6 +67,10 @@ nav a, p {
 nav a:hover {
     color: #e18829;
 }
+
+/*a:visited {*/
+/*    color: none;*/
+/*}*/
 
 /*section {*/
 /*    position: relative;*/
@@ -79,7 +82,7 @@ nav a:hover {
 
 .section_wrap {
     color: #276db6;
-    font-size: 20px;
+    font-size: large;
 }
 
 div p, .edit_profile {
@@ -205,4 +208,78 @@ input[type="file"] {
     border: none;
     margin: 0;
     padding: 0;
+}
+
+.blog_contant {
+    border: 1px solid #276db6;
+    border-radius: 5px;
+    margin: 15px;
+}
+
+.blog_title {
+    font-size: xx-large;
+    margin: 10px;
+}
+
+.blog_creation_time {
+    margin: 10px;
+    font-style: italic;
+}
+
+.blog_articles {
+    margin: 10px;
+}
+
+.blog_gal {
+    margin: 10px;
+    max-width: 200px;
+}
+
+
+.blog_gal img {
+    margin: 10px;
+    max-width: 200px;
+}
+
+.blog_user {
+    margin: 10px;
+}
+
+.conteiner_user_list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 10px;
+}
+
+.conteiner_user {
+    margin: 10px;
+    border: 1px solid #276db6;
+    border-radius: 5px;
+    height: 300px;
+}
+
+.conteiner_user:hover {
+    border: 1px solid #e18829;
+}
+
+.conteiner_user_list a:visited {
+    color: #276db6;
+}
+
+.avatar_user_list img {
+    max-width: 150px;
+    min-width: 100px;
+    margin: 10px;
+    min-height: 50%;
+}
+
+.conteiner_user_info {
+    width: 150px;
+    margin: 10px;
+}
+
+.conteiner_avatar img {
+    max-width: 550px;
 }

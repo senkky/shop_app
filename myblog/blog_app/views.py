@@ -7,21 +7,62 @@ from django.http import HttpResponse, HttpRequest
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 
-from .forms import UserProfileUpdateForm, UserRegisterMultiForm
-from .models import Blog, Profile
+from .forms import UserProfileUpdateForm, UserRegisterMultiForm, BlogCreateForm, BlogGalleryCreateForm
+from .models import Blog, Profile, BlogGallery
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
+
+
+class UserListView(ListView):
+    # model = User
+    template_name = "blog_app/user_list.html"
+    context_object_name = "users"
+    queryset = User.objects.order_by('username')
 
 
 class BlogsListView(ListView):
     template_name = "blog_app/index.html"
-    model = Blog
+    # model = Blog
+    queryset = Blog.objects.order_by('-create_data_time')
+    context_object_name = "blogs"
 
 
-class BlogCreateView(CreateView):
-    model = Blog
-    template_name = "blog_app/blog_form.html"
-    fields = "title", "articles", "gallery"
-    success_url = reverse_lazy("blog_app:index")
+# class BlogCreateView(CreateView):
+#     model = Blog
+#     template_name = "blog_app/blog_form.html"
+#     # fields = "title", "articles", "gallery"
+#     success_url = reverse_lazy("blog_app:index")
+#     form_class = BlogCreateForm
+#
+#     def form_valid(self, form):
+#         form.instance.user = self.request.user
+#         return super().form_valid(form)
+
+def create_to_blog(request: HttpRequest, pk):
+    user = request.user.pk
+    if request.method == 'POST':
+        form = BlogCreateForm(request.POST)
+        file_form = BlogGalleryCreateForm(request.POST, request.FILES)
+        files = request.FILES.getlist('gallery')  # field name in model
+        if form.is_valid() and file_form.is_valid():
+            feed_instance = form.save(commit=False)
+            feed_instance.user = user
+            feed_instance.save()
+            for f in files:
+                file_instance = BlogGallery(file=f, blog=feed_instance)
+                file_instance.save()
+            return redirect('/index/')
+    else:
+        form = BlogCreateForm()
+        file_form = BlogGalleryCreateForm()
+        return render(request, 'blog_form.html', {'form': form, 'file_form': file_form, })
+
+    # def form_valid(self, form):
+    #     form.instance.user = self.request.user
+    #     response = super().form_valid(form)
+    #     for image in form.files.getlist("gallery"):
+    #         Blog.objects.create(
+    #             gallery=image)
+    #     return response
 
 
 # class MyLogoutView(LogoutView):
@@ -34,6 +75,11 @@ def logout_view(request: HttpRequest):
 
 class AboutMeView(TemplateView):
     template_name = "blog_app/about-me.html"
+
+
+class UserDetailView(DetailView):
+    model = User
+    template_name = "blog_app/user_details.html"
 
 
 # def update_user(request: HttpRequest) -> HttpResponse:

@@ -2,7 +2,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.forms import ModelForm
 from betterforms.multiform import MultiModelForm
-from .models import Profile
+from .models import Profile, Blog, BlogGallery
 from django import forms
 
 
@@ -54,3 +54,21 @@ class UserProfileUpdateForm(MultiModelForm):
         'user': UserUpdateForm,
         'profile': ProfileUpdateForm,
     }
+
+
+class BlogCreateForm(forms.ModelForm):
+    class Meta:
+        model = Blog
+        fields = "title", "articles"
+
+
+class BlogGalleryCreateForm(forms.ModelForm):
+    class Meta:
+        model = BlogGallery
+        fields = ("gallery",)
+
+    gallery = forms.ImageField(
+        widget=forms.ClearableFileInput(
+            attrs={"multiple": True}
+        )
+    )

@@ -25,7 +25,10 @@
                             <a href="{% url 'blog_app:index' %}">Главная</a>
                         </li>
                         <li>
-                            <a href="{% url 'blog_app:create_blog' user.id %}">Добавить статью</a>
+                            <a href="{% url 'blog_app:create_blog' user.pk %}">Добавить статью</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'blog_app:user_list' %}">Список пользователей</a>
                         </li>
                         <li>
                             <a href="{% url 'blog_app:about-me' %}">Профиль</a>

@@ -10,19 +10,26 @@
 
 {% block body %}
     <h1>Статьи</h1>
-    {% if blog %}
-        <div>
-            {% for blog in blogs %}
-                <div>
-                    <h2>Title: {{ blog.title }}</h2>
-                    <h2>Username: {{ blog.user }}</h2>
-                    <p>Creat: {{ blog.create_data_time }}</p>
-                    <p>Article: {{ blog.articles }}</p>
-                    <img src="{{ blog.gallery }}" alt="">
+    {% if blogs %}
+        {% for blog in blogs %}
+            <div class="blog_contant">
+                <div class="blog_title">{{ blog.title }}</div>
+                <div class="blog_creation_time">
+                    {{ blog.create_data_time|date:"D d M Y" }} {{ blog.create_data_time|time:"H:i" }}
                 </div>
-            {% endfor %}
+                <div class="blog_articles">{{ blog.articles }}</div>
+                <div class="blog_gal">
+                    {#                    <img src="{{ blog.gallery.url }}" alt="{{ blog.gallery.name }}">#}
+                    {% for img in blog.gallery.all %}
+                        <img src="{{ img.gallery.url }}" alt="{{ img.gallery.name }}">
+                    {% empty %}
+                    {% endfor %}
 
-        </div>
+                </div>
+                <div class="blog_user">Пользователь:{{ blog.user }}</div>
+            </div>
+        {% endfor %}
+
     {% else %}
         <h3>Статей нет</h3>
     {% endif %}

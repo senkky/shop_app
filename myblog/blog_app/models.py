@@ -14,8 +14,12 @@ class Blog(models.Model):
     title = models.CharField(max_length=30)
     create_data_time = models.DateTimeField(auto_now_add=True, auto_now=False)
     articles = models.TextField(max_length=10000)
-    gallery = models.ImageField(blank=True, upload_to=blog_gallery_directory_path)
     archived = models.BooleanField(default=False)
+
+
+class BlogGallery(models.Model):
+    blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
+    gallery = models.ImageField(blank=True, upload_to=blog_gallery_directory_path)
 
 
 def profile_images_directory_path(instance: "Profile", filename: str) -> str:

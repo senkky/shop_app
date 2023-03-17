@@ -9,8 +9,8 @@
     <div>
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
-
             {{ form.as_p }}
+            {{ file_form.as_p }}
             <div class="conteiner_pub">
                 <button type="submit" class="pub_button">
                     Создать статью
