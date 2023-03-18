@@ -4,7 +4,7 @@ from django.db import models
 
 def blog_gallery_directory_path(instance: "Blog", filename: str) -> str:
     return "blog/blog_{id}/gallery{filename}".format(
-        id=instance.user_id,
+        id=instance.blog.pk,
         filename=filename,
     )
 
@@ -18,7 +18,7 @@ class Blog(models.Model):
 
 
 class BlogGallery(models.Model):
-    blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
+    blog = models.ForeignKey(Blog, on_delete=models.CASCADE, related_name="gallery")
     gallery = models.ImageField(blank=True, upload_to=blog_gallery_directory_path)
 
 

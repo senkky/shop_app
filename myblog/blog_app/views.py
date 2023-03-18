@@ -22,7 +22,8 @@ class UserListView(ListView):
 class BlogsListView(ListView):
     template_name = "blog_app/index.html"
     # model = Blog
-    queryset = Blog.objects.order_by('-create_data_time')
+    queryset = Blog.objects.prefetch_related('gallery').order_by('-create_data_time')
+
     context_object_name = "blogs"
 
 
@@ -38,17 +39,17 @@ class BlogsListView(ListView):
 #         return super().form_valid(form)
 
 def create_blog(request: HttpRequest, *args, **kwargs):
-    user = request.user.pk
+    user = request.user
     if request.method == 'POST':
         form = BlogCreateForm(request.POST)
         file_form = BlogGalleryCreateForm(request.POST, request.FILES)
-        files = request.FILES.getlist('gallery')  # field name in model
+        gallery = request.FILES.getlist('gallery')  # field name in model
         if form.is_valid() and file_form.is_valid():
             feed_instance = form.save(commit=False)
             feed_instance.user = user
             feed_instance.save()
-            for f in files:
-                file_instance = BlogGallery(file=f, blog=feed_instance)
+            for f in gallery:
+                file_instance = BlogGallery(gallery=f, blog=feed_instance)
                 file_instance.save()
             return redirect('/index/')
     else:
