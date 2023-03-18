@@ -37,7 +37,7 @@ class BlogsListView(ListView):
 #         form.instance.user = self.request.user
 #         return super().form_valid(form)
 
-def create_to_blog(request: HttpRequest, pk):
+def create_blog(request: HttpRequest, *args, **kwargs):
     user = request.user.pk
     if request.method == 'POST':
         form = BlogCreateForm(request.POST)
@@ -54,7 +54,7 @@ def create_to_blog(request: HttpRequest, pk):
     else:
         form = BlogCreateForm()
         file_form = BlogGalleryCreateForm()
-        return render(request, 'blog_form.html', {'form': form, 'file_form': file_form, })
+        return render(request, 'blog_app/blog_form.html', {'form': form, 'file_form': file_form, })
 
     # def form_valid(self, form):
     #     form.instance.user = self.request.user
