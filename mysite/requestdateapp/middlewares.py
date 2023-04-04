@@ -1,11 +1,12 @@
 from django.http import HttpRequest, HttpResponse
 
-from django_ratelimit.decorators import ratelimit
+
+# from django_ratelimit.decorators import ratelimit
 
 
 def set_useragent_on_request_middleware(get_response):
-
     print('initial call')
+
     def middleware(request: HttpRequest):
         print("before get response")
         request.user_agent = request.META["HTTP_USER_AGENT"]
@@ -14,6 +15,7 @@ def set_useragent_on_request_middleware(get_response):
         return response
 
     return middleware
+
 
 class CountRequestsMiddleware:
     def __init__(self, get_response):
