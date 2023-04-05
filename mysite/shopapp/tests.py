@@ -143,11 +143,19 @@ class ProductsExportViewTestCase(TestCase):
 
 
 class OrderDetailsViewTestCase(TestCase):
+    fixtures = [
+        'order-fixture.json',
+    ]
+
     @classmethod
     def setUpClass(cls):
         cls.credentials = dict(username="bob_test", password="qwerty")
         cls.user = User.objects.create_user(**cls.credentials)
-        cls.order = Order.objects.all()
+        cls.order = (
+            Order.objects
+            .select_related("user")
+            .prefetch_related("products")
+        )
 
     @classmethod
     def tearDownClass(cls):
@@ -156,18 +164,18 @@ class OrderDetailsViewTestCase(TestCase):
 
     def setUp(self) -> None:
         self.client.force_login(self.user)
-        self.order.objects.create(delivery_address="SALE123")
+        self.order.create(delivery_address="SALE123", promocode="SALE123")
 
     def test_order_details(self):
         response = self.client.get(
             reverse("shopapp:order_details", kwargs={"pk": self.order.pk}),
             HTTP_USER_AGENT="Mozilla/5.0"
         )
-        orders = Order.objects.order_by("pk").all()
+        orders = Order.objects.all()
         orders_data = response.json()
         expected_data = [
             {
-                "user": order.user.pk,
+                "user": self.user.pk,
                 "pk": order.pk,
                 "promocode": order.promocode,
                 "delivery_address": order.delivery_address,
@@ -179,5 +187,33 @@ class OrderDetailsViewTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
             orders_data["order"],
+            expected_data,
+        )
+
+
+class OrderExportViewTestCase(TestCase):
+    fixtures = [
+        'order-fixture.json',
+    ]
+
+    def test_get_orders_view(self):
+        response = self.client.get(
+            reverse("shopapp:order-export"),
+            HTTP_USER_AGENT="Mozilla/5.0",
+        )
+        self.assertEqual(response.status_code, 200)
+        orders = Order.objects.order_by("pk").all()
+        expected_data = [
+            {
+                "user": self.user.pk,
+                "pk": order.pk,
+                "promocode": order.promocode,
+                "delivery_address": order.delivery_address,
+            }
+            for order in orders
+        ]
+        order_data = response.json()
+        self.assertEqual(
+            order_data["order"],
             expected_data,
         )

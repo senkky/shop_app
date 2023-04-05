@@ -202,3 +202,19 @@ class ProductsDataExportView(View):
             for product in products
         ]
         return JsonResponse({"products": products_data})
+
+
+class OrderDataExportView(View):
+    def get(self, request: HttpRequest) -> JsonResponse:
+        orders = Order.objects.order_by("pk").all()
+        orders_data = [
+            {
+                "user": order.user.pk,
+                "pk": order.pk,
+                "promocode": order.promocode,
+                "delivery_address": order.delivery_address,
+            }
+            for order in orders
+        ]
+        return JsonResponse({"order": orders_data})
+
