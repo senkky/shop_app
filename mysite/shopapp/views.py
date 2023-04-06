@@ -205,7 +205,7 @@ class ProductsDataExportView(View):
 
 
 class OrderDataExportView(PermissionRequiredMixin, View):
-    permission_required = 'is_staff'
+    permission_required = 'user.is_staff'
 
     def get(self, request: HttpRequest) -> JsonResponse:
         orders = Order.objects.order_by("pk").all()
