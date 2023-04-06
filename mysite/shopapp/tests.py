@@ -196,6 +196,18 @@ class OrderExportViewTestCase(TestCase):
         'order-fixture.json',
     ]
 
+    @classmethod
+    def setUpClass(cls):
+        cls.credentials = dict(username="bob_test", password="qwerty", is_staff=True)
+        cls.user = User.objects.create_user(**cls.credentials)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.user.delete()
+
+    def setUp(self) -> None:
+        self.client.force_login(self.user)
+
     def test_get_orders_view(self):
         response = self.client.get(
             reverse("shopapp:order-export"),

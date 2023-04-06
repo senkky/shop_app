@@ -204,7 +204,7 @@ class ProductsDataExportView(View):
         return JsonResponse({"products": products_data})
 
 
-class OrderDataExportView(View):
+class OrderDataExportView(PermissionRequiredMixin, View):
     def get(self, request: HttpRequest) -> JsonResponse:
         orders = Order.objects.order_by("pk").all()
         orders_data = [
@@ -217,4 +217,3 @@ class OrderDataExportView(View):
             for order in orders
         ]
         return JsonResponse({"order": orders_data})
-
