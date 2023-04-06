@@ -8,6 +8,7 @@ from django.views.generic import TemplateView, ListView, DetailView, CreateView,
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 
 from .forms import ProductForm, OrdersForm, GroupForm
+from .mixins import LogoutIfNotStaffMixin
 from .models import Product, Order, ProductImage
 from django.views import View
 
@@ -204,8 +205,8 @@ class ProductsDataExportView(View):
         return JsonResponse({"products": products_data})
 
 
-class OrderDataExportView(PermissionRequiredMixin, View):
-    permission_required = 'user.is_staff'
+class OrderDataExportView(PermissionRequiredMixin, LogoutIfNotStaffMixin, View):
+    permission_required = 'is_staff'
 
     def get(self, request: HttpRequest) -> JsonResponse:
         orders = Order.objects.order_by("pk").all()
