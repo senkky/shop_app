@@ -210,6 +210,7 @@ class OrderDataExportView(PermissionRequiredMixin, View):
         orders_data = [
             {
                 "user": order.user.pk,
+                "products": order.products.pk,
                 "pk": order.pk,
                 "promocode": order.promocode,
                 "delivery_address": order.delivery_address,

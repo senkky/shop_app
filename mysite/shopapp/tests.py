@@ -218,6 +218,7 @@ class OrderExportViewTestCase(TestCase):
         expected_data = [
             {
                 "user": self.user.pk,
+                "products": order.products.pk,
                 "pk": order.pk,
                 "promocode": order.promocode,
                 "delivery_address": order.delivery_address,
