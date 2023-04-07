@@ -5,7 +5,9 @@ from django.urls import reverse
 
 class GetCookieViewTestCase(TestCase):
     def test_get_cookie_view(self):
-        response = self.client.get(reverse("myauth:cookie-get"))
+        response = self.client.get(reverse("myauth:cookie-get"),
+                                   HTTP_USER_AGENT="Mozilla/5.0",
+                                   )
         self.assertContains(response, "Cookie value")
 
 

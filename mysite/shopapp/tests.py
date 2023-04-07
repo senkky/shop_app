@@ -28,7 +28,8 @@ class ProductCreateViewTestCase(TestCase):
                 "price": "123.45",
                 "description": "A good table",
                 "discount": "10"
-            }, HTTP_USER_AGENT="Mozilla/5.0"
+            },
+            HTTP_USER_AGENT="Mozilla/5.0",
         )
         self.assertRedirects(response, reverse("shopapp:products_list"))
         self.assertTrue(
@@ -72,7 +73,9 @@ class ProductsListViewTestView(TestCase):
     ]
 
     def test_products(self):
-        response = self.client.get(reverse("shopapp:products_list"))
+        response = self.client.get(reverse("shopapp:products_list"),
+                                   HTTP_USER_AGENT="Mozilla/5.0",
+                                   )
         # for product in Product.objects.filter(archived=False).all():
         #     self.assertContains(response, product.name)
         # products = Product.objects.filter(archived=False).all()
