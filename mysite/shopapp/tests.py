@@ -169,7 +169,7 @@ class OrderDetailsViewTestCase(TestCase):
 
     def setUp(self) -> None:
         self.client.force_login(self.user)
-        self.order.create(delivery_address="SALE123", promocode="SALE123", pk=10)
+        self.order.create(delivery_address="ul Pupkina, d 8", promocode="SALE123")
 
     def test_order_details(self):
         response = self.client.get(
@@ -182,7 +182,7 @@ class OrderDetailsViewTestCase(TestCase):
             {
                 "user": order.user.pk,
                 "product": order.products.pk,
-                "pk": order.pk,
+                "pk": order.order.pk,
                 "promocode": order.promocode,
                 "delivery_address": order.delivery_address,
 
@@ -206,7 +206,7 @@ class OrderExportViewTestCase(TestCase):
 
     @classmethod
     def setUpTestData(cls):
-        cls.credentials = dict(username="bob_test", password="qwerty", is_staff=True, pk=10)
+        cls.credentials = dict(username="bob_test", password="qwerty", is_staff=True)
         cls.user = User.objects.create_user(**cls.credentials)
 
     @classmethod
@@ -225,7 +225,7 @@ class OrderExportViewTestCase(TestCase):
         orders = Order.objects.order_by("pk").all()
         expected_data = [
             {
-                "user": self.user.pk,
+                "user": order.user.pk,
                 "products": order.products.pk,
                 "pk": order.pk,
                 "promocode": order.promocode,
