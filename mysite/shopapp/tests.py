@@ -151,7 +151,7 @@ class OrderDetailsViewTestCase(TestCase):
     ]
 
     @classmethod
-    def setUpClass(cls):
+    def setUpTestData(cls):
         cls.credentials = dict(username="bob_test", password="qwerty")
         cls.user = User.objects.create_user(**cls.credentials)
         cls.order = (
@@ -200,7 +200,7 @@ class OrderExportViewTestCase(TestCase):
     ]
 
     @classmethod
-    def setUpClass(cls):
+    def setUpTestData(cls):
         cls.credentials = dict(username="bob_test", password="qwerty", is_staff=True)
         cls.user = User.objects.create_user(**cls.credentials)
 
