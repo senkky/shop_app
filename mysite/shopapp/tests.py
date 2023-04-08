@@ -148,11 +148,12 @@ class ProductsExportViewTestCase(TestCase):
 class OrderDetailsViewTestCase(TestCase):
     fixtures = [
         'order-fixture.json',
+        'products-fixture.json',
     ]
 
     @classmethod
     def setUpTestData(cls):
-        cls.credentials = dict(username="bob_test", password="qwerty")
+        cls.credentials = dict(username="bob_test", password="qwerty", pk='10')
         cls.user = User.objects.create_user(**cls.credentials)
         cls.order = (
             Order.objects
@@ -201,7 +202,7 @@ class OrderExportViewTestCase(TestCase):
 
     @classmethod
     def setUpTestData(cls):
-        cls.credentials = dict(username="bob_test", password="qwerty", is_staff=True)
+        cls.credentials = dict(username="bob_test", password="qwerty", is_staff=True, pk='10')
         cls.user = User.objects.create_user(**cls.credentials)
 
     @classmethod
