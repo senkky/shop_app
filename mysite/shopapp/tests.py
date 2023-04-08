@@ -149,6 +149,7 @@ class OrderDetailsViewTestCase(TestCase):
     fixtures = [
         'order-fixture.json',
         'products-fixture.json',
+        'user-fixture.json',
     ]
 
     @classmethod
@@ -168,18 +169,19 @@ class OrderDetailsViewTestCase(TestCase):
 
     def setUp(self) -> None:
         self.client.force_login(self.user)
-        self.order.create(delivery_address="SALE123", promocode="SALE123")
+        self.order.create(delivery_address="SALE123", promocode="SALE123", pk=10)
 
     def test_order_details(self):
         response = self.client.get(
             reverse("shopapp:order_details", kwargs={"pk": self.order.pk}),
             HTTP_USER_AGENT="Mozilla/5.0"
         )
-        orders = Order.objects.all()
+        orders = Order.objects.select_related("user").prefetch_related("products")
         orders_data = response.json()
         expected_data = [
             {
-                "user": self.user.pk,
+                "user": order.user.pk,
+                "product": order.products.pk,
                 "pk": order.pk,
                 "promocode": order.promocode,
                 "delivery_address": order.delivery_address,
@@ -198,11 +200,13 @@ class OrderDetailsViewTestCase(TestCase):
 class OrderExportViewTestCase(TestCase):
     fixtures = [
         'order-fixture.json',
+        'products-fixture.json',
+        'user-fixture.json',
     ]
 
     @classmethod
     def setUpTestData(cls):
-        cls.credentials = dict(username="bob_test", password="qwerty", is_staff=True, pk='10')
+        cls.credentials = dict(username="bob_test", password="qwerty", is_staff=True, pk=10)
         cls.user = User.objects.create_user(**cls.credentials)
 
     @classmethod
