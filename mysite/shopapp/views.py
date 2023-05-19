@@ -220,4 +220,4 @@ class OrderDataExportView(PermissionRequiredMixin, LogoutIfNotStaffMixin, View):
             }
             for order in orders
         ]
-        return JsonResponse({"order": orders_data})
+        return JsonResponse({"orders": orders_data})

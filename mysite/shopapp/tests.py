@@ -94,7 +94,7 @@ class OrdersListViewTestCase(TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.credentials = dict(username="bob_test", password="qwerty")
+        cls.credentials = dict(username="bob_test", password="qwerty", pk=9)
         cls.user = User.objects.create_user(**cls.credentials)
 
     @classmethod
@@ -146,16 +146,12 @@ class ProductsExportViewTestCase(TestCase):
 
 
 class OrderDetailsViewTestCase(TestCase):
-    fixtures = [
-        'order-fixture.json',
-        'products-fixture.json',
-        'user-fixture.json',
-    ]
 
     @classmethod
     def setUpTestData(cls):
-        cls.credentials = dict(username="bob_test", password="qwerty", pk='10')
+        cls.credentials = dict(pk=9, username="bob_test", password="qwerty")
         cls.user = User.objects.create_user(**cls.credentials)
+        cls.products = Product.objects.first()
         cls.order = (
             Order.objects
             .select_related("user")
@@ -169,7 +165,8 @@ class OrderDetailsViewTestCase(TestCase):
 
     def setUp(self) -> None:
         self.client.force_login(self.user)
-        self.order.create(delivery_address="ul Pupkina, d 8", promocode="SALE123")
+        self.order.create(pk=1, delivery_address="ul Pupkina, d 8", promocode="SALE123", user=self.user.pk,
+                          products=self.products)
 
     def test_order_details(self):
         response = self.client.get(
@@ -178,11 +175,12 @@ class OrderDetailsViewTestCase(TestCase):
         )
         orders = Order.objects.select_related("user").prefetch_related("products")
         orders_data = response.json()
+        print(orders_data)
         expected_data = [
             {
                 "user": order.user.pk,
                 "product": order.products.pk,
-                "pk": order.order.pk,
+                "pk": order.pk,
                 "promocode": order.promocode,
                 "delivery_address": order.delivery_address,
 
@@ -192,7 +190,7 @@ class OrderDetailsViewTestCase(TestCase):
         print(expected_data)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
-            orders_data["order"],
+            orders_data["orders"],
             expected_data,
         )
 
@@ -202,6 +200,7 @@ class OrderExportViewTestCase(TestCase):
         'order-fixture.json',
         'products-fixture.json',
         'user-fixture.json',
+        'dumped_data.json'
     ]
 
     @classmethod
