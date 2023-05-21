@@ -11,6 +11,7 @@ from .views import (
     profile_list,
     UserUpdateView,
     FooBarView,
+    HelloView,
 )
 
 app_name = "myauth"
@@ -24,6 +25,7 @@ urlpatterns = [
             redirect_authenticated_user=True,
         ), name="login"),
     # path("logout/", logout_view, name="logout"),
+    path("hello/", HelloView.as_view(), name="hello"),
     path("logout/", LogoutView.as_view(), name="logout"),
     path("about-me/", AboutMeView.as_view(), name="about-me"),
     path("profile_list/", profile_list, name="profile_list"),

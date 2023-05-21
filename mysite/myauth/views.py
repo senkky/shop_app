@@ -11,6 +11,25 @@ from django.views import View
 # from .forms import UserListForm
 from .models import Profile
 from django.urls import reverse
+from django.utils.translation import gettext_lazy as _, ngettext
+
+
+class HelloView(View):
+    welcome_massage = _("welcome hello world")
+
+    def get(self, request: HttpRequest) -> HttpResponse:
+        items_str = request.GET.get("items") or 0
+        items = int(items_str)
+        products_line = ngettext(
+            "one product",
+            "{count} products",
+            items,
+        )
+        products_line = products_line.format(count=items)
+        return HttpResponse(
+            f"<h1>{self.welcome_massage}</h1>"
+            f"\n<h2>{products_line}</h2>"
+        )
 
 
 class AboutMeView(TemplateView):
