@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-21 14:42+0300\n"
+"POT-Creation-Date: 2023-05-21 17:56+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -48,6 +48,34 @@ msgstr "Products"
 msgid "Products"
 msgstr "Products"
 
+#: .\shopapp\models.py:21
+msgid "наименование"
+msgstr "name"
+
+#: .\shopapp\models.py:22
+msgid "описание"
+msgstr "description"
+
+#: .\shopapp\models.py:23
+msgid "цена"
+msgstr "price"
+
+#: .\shopapp\models.py:24
+msgid "скидка"
+msgstr "discount"
+
+#: .\shopapp\models.py:25 .\shopapp\models.py:59
+msgid "дата и время создания"
+msgstr "date and time of creation"
+
+#: .\shopapp\models.py:26
+msgid "архивировано"
+msgstr "archived"
+
+#: .\shopapp\models.py:27
+msgid "фото"
+msgstr "image"
+
 #: .\shopapp\models.py:54
 msgid "Order"
 msgstr ""
@@ -55,6 +83,28 @@ msgstr ""
 #: .\shopapp\models.py:55
 msgid "Orders"
 msgstr ""
+
+#: .\shopapp\models.py:57
+msgid "адрес доставки"
+msgstr "delivery address"
+
+#: .\shopapp\models.py:58
+msgid "промо код"
+msgstr "promo code"
+
+#: .\shopapp\models.py:60
+#, fuzzy
+#| msgid "польpователь"
+msgid "имя пользователя"
+msgstr "username"
+
+#: .\shopapp\models.py:61
+msgid "товар"
+msgstr "product"
+
+#: .\shopapp\models.py:62
+msgid "фото чека"
+msgstr "receipt photo"
 
 #: .\shopapp\templates\shopapp\base.html:24
 msgid "Today is"

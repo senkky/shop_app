@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-21 14:42+0300\n"
+"POT-Creation-Date: 2023-05-21 17:56+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -48,6 +48,34 @@ msgstr "Товар"
 msgid "Products"
 msgstr "Товары"
 
+#: .\shopapp\models.py:21
+msgid "наименование"
+msgstr ""
+
+#: .\shopapp\models.py:22
+msgid "описание"
+msgstr ""
+
+#: .\shopapp\models.py:23
+msgid "цена"
+msgstr ""
+
+#: .\shopapp\models.py:24
+msgid "скидка"
+msgstr ""
+
+#: .\shopapp\models.py:25 .\shopapp\models.py:59
+msgid "дата и время создания"
+msgstr ""
+
+#: .\shopapp\models.py:26
+msgid "архивировано"
+msgstr ""
+
+#: .\shopapp\models.py:27
+msgid "фото"
+msgstr ""
+
 #: .\shopapp\models.py:54
 msgid "Order"
 msgstr "Заказ"
@@ -56,11 +84,32 @@ msgstr "Заказ"
 msgid "Orders"
 msgstr "Заказы"
 
+#: .\shopapp\models.py:57
+msgid "адрес доставки"
+msgstr ""
+
+#: .\shopapp\models.py:58
+msgid "промо код"
+msgstr ""
+
+#: .\shopapp\models.py:60
+msgid "имя пользователя"
+msgstr ""
+
+#: .\shopapp\models.py:61
+msgid "товар"
+msgstr ""
+
+#: .\shopapp\models.py:62
+msgid "фото чека"
+msgstr ""
+
 #: .\shopapp\templates\shopapp\base.html:24
 msgid "Today is"
 msgstr "Сегодня"
 
 #: .\shopapp\templates\shopapp\product_details.html:13
+#, python-format
 msgid ""
 "\n"
 "                No images\n"
@@ -126,14 +175,16 @@ msgid ""
 msgstr ""
 "\n"
 "                <div>\n"
-"                    <a href=\"%(product__update)s\">Обновить информацию о товаре</a>\n"
+"                    <a href=\"%(product__update)s\">Обновить информацию о "
+"товаре</a>\n"
 "                </div>\n"
 "                <div>\n"
-"                    <a href=\"%(product__delete)s\">Поместить товар в архив</a>\n"
-"                </div>\n"
-"                <div>\n"
-"                    <a href=\"%(products__list)s\">Вернуться к списку товаров</"
+"                    <a href=\"%(product__delete)s\">Поместить товар в архив</"
 "a>\n"
+"                </div>\n"
+"                <div>\n"
+"                    <a href=\"%(products__list)s\">Вернуться к списку "
+"товаров</a>\n"
 "                </div>\n"
 "            "
 
