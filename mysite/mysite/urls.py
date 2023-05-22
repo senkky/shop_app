@@ -25,6 +25,7 @@ urlpatterns = [
     path('req/', include('requestdateapp.urls')),
     path('files/', include('app_media.urls')),
     path('app_goods/', include('app_goods.urls')),
+    path('api/', include('myapiapp.urls')),
 ]
 
 urlpatterns += i18n_patterns(
