@@ -19,12 +19,17 @@ from django.contrib import admin
 from django.urls import path, include
 
 from django.conf.urls.i18n import i18n_patterns
+from drf_spectacular.view import SpectacularAPIView, SpectacularRedocView, SpectacularASwaggerView
 
 urlpatterns = [
+    path('admin/doc/', include('django.contrib.admindocs.urls')),
     path('admin/', admin.site.urls),
     path('req/', include('requestdateapp.urls')),
     path('files/', include('app_media.urls')),
     path('app_goods/', include('app_goods.urls')),
+    path('api/schema/', SpectacularAPIView.as_view(), name="schema"),
+    path('api/schema/swagger/', SpectacularASwaggerView.as_view(url_name='schema'), name="swagger"),
+    path('api/schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name="redoc"),
     path('api/', include('myapiapp.urls')),
 ]
 
