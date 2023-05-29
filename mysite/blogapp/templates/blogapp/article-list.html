@@ -1,0 +1,35 @@
+{% extends 'blogapp/base.html' %}
+
+{% load i18n %}
+
+{% block title %}
+    {% translate 'Список статей' %}
+{% endblock %}
+
+{% block body %}
+    <h1>{% translate 'Статьи' %}:</h1>
+    {% if article %}
+        <div>
+            {% blocktranslate count article_count=article|length %}
+                Есть только одна статья.
+                {% plural %}
+                Есть {{ article_count }} статьи.
+            {% endblocktranslate %}
+        </div>
+        <div>
+        {% for article in articles %}
+            <div>
+                <p>{% translate 'Загаловок статьи' %}{{ article.title }}</p>
+                <p>{% translate 'Дата публикации' %}{{ article.pub_date }}</p>
+                <p>{% translate 'Имя автора' %}{{ article.author }}</p>
+                <p>{% translate 'Категория статьи' %}{{ article.category }}</p>
+                <p>{% translate 'Категория статьи' %}{{ article.tag.all }}</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        {% blocktranslate %}
+            <h3>Пока нет статей</h3>
+        {% endblocktranslate %}
+    {% endif %}
+
+{% endblock %}

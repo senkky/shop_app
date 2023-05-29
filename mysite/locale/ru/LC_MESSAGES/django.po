@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-21 17:56+0300\n"
+"POT-Creation-Date: 2023-05-29 12:26+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,6 +18,68 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: .\blogapp\models.py:6 .\blogapp\templates\blogapp\article-list.html:24
+msgid "Имя автора"
+msgstr ""
+
+#: .\blogapp\models.py:7
+msgid "Биография автора"
+msgstr ""
+
+#: .\blogapp\models.py:11
+msgid "Название категории"
+msgstr ""
+
+#: .\blogapp\models.py:15
+msgid "Тэг статьи"
+msgstr ""
+
+#: .\blogapp\models.py:19
+msgid "Заголовок статьи"
+msgstr ""
+
+#: .\blogapp\templates\blogapp\article-list.html:6
+msgid "Список статей"
+msgstr ""
+
+#: .\blogapp\templates\blogapp\article-list.html:10
+msgid "Статьи"
+msgstr ""
+
+#: .\blogapp\templates\blogapp\article-list.html:13
+#, python-format
+msgid ""
+"\n"
+"                Есть только одна статья.\n"
+"                "
+msgid_plural ""
+"\n"
+"                Есть %(article_count)s статьи.\n"
+"            "
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: .\blogapp\templates\blogapp\article-list.html:22
+msgid "Загаловок статьи"
+msgstr ""
+
+#: .\blogapp\templates\blogapp\article-list.html:23
+msgid "Дата публикации"
+msgstr ""
+
+#: .\blogapp\templates\blogapp\article-list.html:25
+#: .\blogapp\templates\blogapp\article-list.html:26
+msgid "Категория статьи"
+msgstr ""
+
+#: .\blogapp\templates\blogapp\article-list.html:30
+msgid ""
+"\n"
+"            <h3>Пока нет статей</h3>\n"
+"        "
+msgstr ""
 
 #: .\myauth\views.py:18
 msgid "welcome hello world"
@@ -31,76 +93,76 @@ msgstr[0] "{count} товар"
 msgstr[1] "{count} товара"
 msgstr[2] "{count} товаров"
 
-#: .\mysite\settings.py:129
+#: .\mysite\settings.py:136
 msgid "English"
 msgstr "Английский"
 
-#: .\mysite\settings.py:130
+#: .\mysite\settings.py:137
 msgid "Russian"
 msgstr "Русский"
 
-#: .\shopapp\models.py:16 .\shopapp\templates\shopapp\product_details.html:6
+#: .\shopapp\models.py:23 .\shopapp\templates\shopapp\product_details.html:6
 #: .\shopapp\templates\shopapp\product_details.html:10
 msgid "Product"
 msgstr "Товар"
 
-#: .\shopapp\models.py:17 .\shopapp\templates\shopapp\products-list.html:10
+#: .\shopapp\models.py:24 .\shopapp\templates\shopapp\products-list.html:10
 msgid "Products"
 msgstr "Товары"
 
-#: .\shopapp\models.py:21
+#: .\shopapp\models.py:28
 msgid "наименование"
 msgstr ""
 
-#: .\shopapp\models.py:22
+#: .\shopapp\models.py:29
 msgid "описание"
 msgstr ""
 
-#: .\shopapp\models.py:23
+#: .\shopapp\models.py:30
 msgid "цена"
 msgstr ""
 
-#: .\shopapp\models.py:24
+#: .\shopapp\models.py:31
 msgid "скидка"
 msgstr ""
 
-#: .\shopapp\models.py:25 .\shopapp\models.py:59
+#: .\shopapp\models.py:32 .\shopapp\models.py:66
 msgid "дата и время создания"
 msgstr ""
 
-#: .\shopapp\models.py:26
+#: .\shopapp\models.py:33
 msgid "архивировано"
 msgstr ""
 
-#: .\shopapp\models.py:27
+#: .\shopapp\models.py:34
 msgid "фото"
 msgstr ""
 
-#: .\shopapp\models.py:54
+#: .\shopapp\models.py:61
 msgid "Order"
 msgstr "Заказ"
 
-#: .\shopapp\models.py:55
+#: .\shopapp\models.py:62
 msgid "Orders"
 msgstr "Заказы"
 
-#: .\shopapp\models.py:57
+#: .\shopapp\models.py:64
 msgid "адрес доставки"
 msgstr ""
 
-#: .\shopapp\models.py:58
+#: .\shopapp\models.py:65
 msgid "промо код"
 msgstr ""
 
-#: .\shopapp\models.py:60
+#: .\shopapp\models.py:67
 msgid "имя пользователя"
 msgstr ""
 
-#: .\shopapp\models.py:61
+#: .\shopapp\models.py:68
 msgid "товар"
 msgstr ""
 
-#: .\shopapp\models.py:62
+#: .\shopapp\models.py:69
 msgid "фото чека"
 msgstr ""
 
