@@ -16,12 +16,15 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.filters import SearchFilter, OrderingFilter
 from django_filters.rest_framework import DjangoFilterBackend
 from drf_spectacular.utils import extend_schema, OpenApiResponse
+import logging
 
 from .forms import ProductForm, OrdersForm, GroupForm
 from .mixins import LogoutIfNotStaffMixin
 from .models import Product, Order, ProductImage
 from django.views import View
 from .serializers import ProductSerialiser, OrderSerialiser
+
+logger = logging.getLogger(__name__)
 
 
 @extend_schema(description="Product views CRUD")
@@ -230,6 +233,7 @@ class OrderCreateView(CreateView):
     model = Order
     fields = "user", "products", "promocode", "delivery_address"
     success_url = reverse_lazy("shopapp:order_list")
+    logger.info(f'Создан заказ {fields}')
 
 
 # def create_order(request: HttpRequest) -> HttpResponse:
