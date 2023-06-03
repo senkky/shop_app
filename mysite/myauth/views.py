@@ -12,6 +12,9 @@ from django.views import View
 from .models import Profile
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _, ngettext
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class HelloView(View):
@@ -91,6 +94,7 @@ def login_view(request: HttpRequest):
     if user is not None:
         login(request, user)
         return redirect("/admin/")
+    logger.info(f'Пользователь {user} аутентификация ')
 
     return render(request, "myauth/login.html", {"error": "Invalid login credentials"})
 

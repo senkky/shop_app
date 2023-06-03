@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-29 12:26+0300\n"
+"POT-Creation-Date: 2023-05-29 16:50+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34,7 +34,7 @@ msgstr "Category name"
 msgid "Тэг статьи"
 msgstr "Tag"
 
-#: .\blogapp\models.py:19
+#: .\blogapp\models.py:19 .\blogapp\templates\blogapp\article-list.html:22
 msgid "Заголовок статьи"
 msgstr "Article title"
 
@@ -65,18 +65,17 @@ msgstr[1] ""
 "                There are %(article_count)s articles.\n"
 "            "
 
-#: .\blogapp\templates\blogapp\article-list.html:22
-msgid "Загаловок статьи"
-msgstr "Article title"
-
 #: .\blogapp\templates\blogapp\article-list.html:23
 msgid "Дата публикации"
 msgstr "Date of publication"
 
 #: .\blogapp\templates\blogapp\article-list.html:25
-#: .\blogapp\templates\blogapp\article-list.html:26
 msgid "Категория статьи"
 msgstr "Article category"
+
+#: .\blogapp\templates\blogapp\article-list.html:26
+msgid "Тэги"
+msgstr "Tegs"
 
 #: .\blogapp\templates\blogapp\article-list.html:30
 msgid ""
@@ -276,6 +275,9 @@ msgid ""
 "            </a>\n"
 "        "
 msgstr ""
+
+#~ msgid "Загаловок статьи"
+#~ msgstr "Article title"
 
 #, fuzzy
 #~| msgid "one product"

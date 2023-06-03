@@ -8,9 +8,9 @@
 
 {% block body %}
     <h1>{% translate 'Статьи' %}:</h1>
-    {% if article %}
+    {% if articles %}
         <div>
-            {% blocktranslate count article_count=article|length %}
+            {% blocktranslate count article_count=articles|length %}
                 Есть только одна статья.
                 {% plural %}
                 Есть {{ article_count }} статьи.
@@ -19,11 +19,11 @@
         <div>
         {% for article in articles %}
             <div>
-                <p>{% translate 'Загаловок статьи' %}{{ article.title }}</p>
-                <p>{% translate 'Дата публикации' %}{{ article.pub_date }}</p>
-                <p>{% translate 'Имя автора' %}{{ article.author }}</p>
-                <p>{% translate 'Категория статьи' %}{{ article.category }}</p>
-                <p>{% translate 'Категория статьи' %}{{ article.tag.all }}</p>
+                <p>{% translate 'Заголовок статьи' %}: {{ article.title }}</p>
+                <p>{% translate 'Дата публикации' %}: {{ article.pub_date }}</p>
+                <p>{% translate 'Имя автора' %}: {{ article.author }}</p>
+                <p>{% translate 'Категория статьи' %}: {{ article.category }}</p>
+                <p>{% translate 'Тэги' %}: {{ article.tags.all }}</p>
             </div>
         {% endfor %}
     {% else %}

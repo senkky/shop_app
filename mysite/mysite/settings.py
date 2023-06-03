@@ -16,6 +16,9 @@ from pathlib import Path
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
@@ -39,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admindocs',
+    'debug_toolbar',
 
     'rest_framework',
     'django_filters',
@@ -65,6 +69,7 @@ MIDDLEWARE = [
     'requestdateapp.middlewares.CountRequestsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.contrib.admindocs.middleware.XViewMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'mysite.urls'
@@ -140,7 +145,7 @@ LANGUAGES = [
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'uploads'
@@ -183,22 +188,52 @@ SPECTACULAR_SETTINGS = {
 
 LOGGING = {
     'version': 1,
-    'filters': {
-        'require_debug_true': {
-            '()': 'django.utils.log.RequireDebugTrue',
+    'disable_existing_loggers': False,
+    'formatters': {
+        'console': {
+            'format': '%(name)-12s %(levelname)-8s %(message)s'
         },
     },
+    'file': {
+        'format': '%(asctime)s %(name)-12s %(levelname)-8s %(message)s'
+    },
     'handlers': {
+        'file': {
+            'class': 'logging.FileHandler',
+            'filename': 'info.log',
+        },
         'console': {
-            'level': 'DEBUG',
-            'filters': ['require_debug_true'],
             'class': 'logging.StreamHandler',
         },
     },
-    'loggers': {
-        'django.db.backends': {
-            'level': 'DEBUG',
-            'handlers': ['console'],
-        },
+    'default': {
+        'level': 'INFO',
+        'handlers': ['file'],
+        'propagate': True,
+    },
+    'root': {
+        'level': 'DEBUG',
+        'handlers': ['console'],
+        'propagate': True,
     },
 }
+
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
+
+sentry_sdk.init(
+    dsn="https://899cb708c5054ab2b8803442e8525e02@o4505294740783104.ingest.sentry.io/4505294743470080",
+    integrations=[
+        DjangoIntegration(),
+    ],
+
+    # Set traces_sample_rate to 1.0 to capture 100%
+    # of transactions for performance monitoring.
+    # We recommend adjusting this value in production.
+    traces_sample_rate=1.0,
+
+    # If you wish to associate users to errors (assuming you are using
+    # django.contrib.auth) you may enable sending PII data.
+    send_default_pii=True,
+)

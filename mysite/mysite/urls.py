@@ -20,10 +20,19 @@ from django.urls import path, include
 
 from django.conf.urls.i18n import i18n_patterns
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
+import debug_toolbar
+
+from django.urls import path
+
+
+def trigger_error(request):
+    division_by_zero = 1 / 0
+
 
 urlpatterns = [
     path('admin/doc/', include('django.contrib.admindocs.urls')),
     path('admin/', admin.site.urls),
+    path('__debug__/', include(debug_toolbar.urls)),
     path('req/', include('requestdateapp.urls')),
     path('files/', include('app_media.urls')),
     path('app_goods/', include('app_goods.urls')),
@@ -31,6 +40,7 @@ urlpatterns = [
     path('api/schema/swagger/', SpectacularSwaggerView.as_view(url_name='schema'), name="swagger"),
     path('api/schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name="redoc"),
     path('api/', include('myapiapp.urls')),
+    path('sentry-debug/', trigger_error),
 ]
 
 urlpatterns += i18n_patterns(
