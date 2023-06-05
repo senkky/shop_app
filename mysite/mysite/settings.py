@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admindocs',
+    'django.contrib.sitemaps',
+    'django.contrib.sites',
     'debug_toolbar',
 
     'rest_framework',
@@ -55,7 +57,12 @@ INSTALLED_APPS = [
     'app_goods.apps.AppGoodsConfig',
     'myapiapp.apps.MyapiappConfig',
     'blogapp.apps.BlogappConfig',
+    'app_news.apps.AppNewsConfig',
+    'app_rss.apps.AppRssConfig',
+    'app_house.apps.AppHouseConfig',
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
