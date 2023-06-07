@@ -1,7 +1,7 @@
 {% extends 'blogapp/base.html' %}
 
 {% load i18n %}
-
+{% load cache %}
 {% block title %}
     {% translate 'Список статей' %}
 {% endblock %}
@@ -16,16 +16,19 @@
                 Есть {{ article_count }} статьи.
             {% endblocktranslate %}
         </div>
-        <div>
-        {% for article in articles %}
+        {% cache 500 div %}
             <div>
-                <p>{% translate 'Заголовок статьи' %}: {{ article.title }}</p>
-                <p>{% translate 'Дата публикации' %}: {{ article.pub_date }}</p>
-                <p>{% translate 'Имя автора' %}: {{ article.author }}</p>
-                <p>{% translate 'Категория статьи' %}: {{ article.category }}</p>
-                <p>{% translate 'Тэги' %}: {{ article.tags.all }}</p>
+                {% for article in articles %}
+                    <div>
+                        <p>{% translate 'Заголовок статьи' %}: {{ article.title }}</p>
+                        <p>{% translate 'Дата публикации' %}: {{ article.pub_date }}</p>
+                        <p>{% translate 'Имя автора' %}: {{ article.author }}</p>
+                        <p>{% translate 'Категория статьи' %}: {{ article.category }}</p>
+                        <p>{% translate 'Тэги' %}: {{ article.tags.all }}</p>
+                    </div>
+                {% endfor %}
             </div>
-        {% endfor %}
+        {% endcache %}
     {% else %}
         {% blocktranslate %}
             <h3>Пока нет статей</h3>

@@ -8,7 +8,7 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib.auth.models import Group
 from django.http import HttpResponse, HttpRequest, HttpResponseRedirect, JsonResponse
 from timeit import default_timer
-
+from django.core.cache import cache
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
@@ -138,6 +138,12 @@ class ProductsListView(ListView):
     # model = Product
     context_object_name = "products"
     queryset = Product.objects.filter(archived=False)
+
+    def get_queryset(self):
+        product = self.request.product
+        product_list_cache_key = 'product_list: {}'.format(product)
+        cache.get_or_set(product_list_cache_key, product, 30 * 60)
+        return product.objects.filter(archived=False)
 
 
 # def products_list(request: HttpRequest):
