@@ -30,7 +30,23 @@ SECRET_KEY = 'django-insecure-ia+h7-2z4wljg6gxc^a8y+g3z=p=6)iikik90dgzw_s7fgfj+8
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "0.0.0.0",
+    "127.0.0.1",
+]
+
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
+
+if DEBUG:
+    import socket
+
+    hostname, n, ips = socket.gethostbyname_ex(socket.gethostname())
+    INTERNAL_IPS.append("10.0.2.2")
+    INTERNAL_IPS.extend(
+        [ip[: ip.rfind(".")] + ".1" for ip in ips]
+    )
 
 # Application definition
 
@@ -232,10 +248,6 @@ LOGGING = {
         'propagate': True,
     },
 }
-
-INTERNAL_IPS = [
-    "127.0.0.1",
-]
 
 sentry_sdk.init(
     dsn="https://899cb708c5054ab2b8803442e8525e02@o4505294740783104.ingest.sentry.io/4505294743470080",
