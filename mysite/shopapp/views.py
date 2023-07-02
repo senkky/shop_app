@@ -139,17 +139,6 @@ class ProductsListView(ListView):
     context_object_name = "products"
     queryset = Product.objects.filter(archived=False)
 
-    # def get_queryset(self):
-    #     product = self.request.product  # TODO интересно, что это за товар?
-    #     product_list_cache_key = 'product_list: {}'.format(product)
-    #     # TODO Как видите, тут выполнено только сохранение данные в кэше, а использования данных из кэша нет.
-    #     #  Правда в лекции это не показано подробно, но смысл такой: первым делом смотрим в кеше наличие данных по ключу
-    #     #  с помощью cache.get, если в кэше нужных ключей нет, только тогда делаем запросы в базу и сохраняем в кеше
-    #     #  с помощью cache.set "добытую" информацию. При использовании get_or_set процесс упрощается с двух шагов до одного
-    #     cache.get_or_set(product_list_cache_key, product, 30 * 60)  # TODO вместо product надо сделать запрос в базу,
-    #                                                                 #  кроме, надо присвоить результат функции перерменной...
-    #     return product.objects.filter(archived=False)  # TODO ...а тут указать эту переменную
-
 
 # def products_list(request: HttpRequest):
 #     context = {
